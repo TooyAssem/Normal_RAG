@@ -1,0 +1,30 @@
+# RAG-Summarization-Methodologies
+
+This project is an in-depth exploration of five distinct methodologies for summarizing long-form text using Retrieval-Augmented Generation (RAG). The primary goal is to establish a baseline for summary quality with a simple RAG implementation and then to build upon it by introducing more sophisticated techniques in subsequent methods. The source text for the summarization task is a detailed scientific paper on C. elegans.
+
+A key theme of this project is **Context Engineering**, which is the practice of carefully selecting, shaping, and enriching the information (the "context") that is provided to the language model. The five different methodologies are essentially experiments in context engineering. They explore how different strategies for building the context—from simple document retrieval to enriching it with keyword analysis, stylistic notes, and targeted retrieval queries—impact the quality and focus of the final summary.
+
+## Methodologies
+
+The five methodologies outlined in the notebook are:
+
+1.  **Normal RAG**: This is the baseline method. It involves splitting the source text into smaller chunks, generating embeddings for these chunks, and storing them in a Qdrant vector database. Relevant chunks are then retrieved to build a context for a large language model (`mistral-saba-24b`), which generates the final summary.
+
+2.  **Full-Featured (Small & Large Models + Analysis + Retrieval)**: This approach enhances the summarization process by first extracting keywords and performing a stylistic analysis of the source text. This additional information is then used to guide the summarization model.
+
+3.  **Full-Featured with Vector Database Reset**: This method retains the analysis from the second method but resets and re-indexes the vector database to study the impact of a fresh index on the summary's quality.
+
+4.  **Full-Featured with Analysis and Retrieval Reset**: In this variation, the existing vector database is kept, but the analysis and retrieval steps are re-executed with modified parameters to see how these changes affect the outcome.
+
+5.  **Full-Featured with Full Reset**: This final method involves a complete reset of all components—analysis, retrieval, and the database—to observe the combined effect of starting everything from scratch.
+
+## Implementation
+
+The notebook also provides the Python code to execute the first method, "Normal RAG." This implementation uses a standard set of tools for building RAG pipelines, including:
+
+*   `langchain` for text processing.
+*   `sentence-transformers` for generating text embeddings.
+*   `qdrant-client` for managing the vector database.
+*   `groq` for interacting with the `mistral-saba-24b` language model.
+
+The provided script is designed to generate five summaries using this "Normal RAG" method and then save the results into a CSV file for further analysis.
